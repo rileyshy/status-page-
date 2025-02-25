@@ -9,14 +9,30 @@
     function updateStatus() {
       const now = new Date();
       document.getElementById('lastChecked').textContent = now.toLocaleString();
+    }
 
-      const outageTime = new Date(now.getTime() - 10 * 60000).toLocaleString();
-      document.getElementById('outageHistory').innerHTML = `<p>Outage detected at: ${outageTime} (10 minutes ago)</p>`;
+    function logOutage() {
+      const now = new Date();
+      const outageEntry = document.createElement("p");
+      outageEntry.textContent = `Outage detected at: ${now.toLocaleString()}`;
+      outageEntry.classList.add("outage-entry");
+      document.getElementById('outageHistory').appendChild(outageEntry);
     }
 
     window.onload = updateStatus;
     setInterval(updateStatus, 60000); // Update every minute
   </script>
+  <style>
+    .outage-section {
+      background-color: red;
+      color: white;
+      padding: 10px;
+      border-radius: 5px;
+    }
+    .outage-entry {
+      margin: 5px 0;
+    }
+  </style>
 </head>
 <body>
   <div class="container">
@@ -35,7 +51,11 @@
       <section class="details">
         <h2>Details</h2>
         <p>Last checked: <span id="lastChecked">Loading...</span></p>
+      </section>
+      <section class="outage-section">
+        <h2>Outage History</h2>
         <div id="outageHistory"></div>
+        <button onclick="logOutage()">Log Outage</button>
       </section>
     </main>
     <footer>
