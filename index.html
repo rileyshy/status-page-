@@ -5,6 +5,18 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Status Page</title>
   <link rel="stylesheet" href="styles.css">
+  <script>
+    function updateStatus() {
+      const now = new Date();
+      document.getElementById('lastChecked').textContent = now.toLocaleString();
+
+      const outageTime = new Date(now.getTime() - 10 * 60000).toLocaleString();
+      document.getElementById('outageHistory').innerHTML = `<p>Outage detected at: ${outageTime} (10 minutes ago)</p>`;
+    }
+
+    window.onload = updateStatus;
+    setInterval(updateStatus, 60000); // Update every minute
+  </script>
 </head>
 <body>
   <div class="container">
@@ -19,15 +31,15 @@
           <span>Up</span>
           <p>All systems are operational.</p>
         </div>
-        <!-- Add more status blocks for other services if needed -->
       </section>
       <section class="details">
         <h2>Details</h2>
-        <p>Last checked: <span>2024-12-11 8:43 AM</span></p>
+        <p>Last checked: <span id="lastChecked">Loading...</span></p>
+        <div id="outageHistory"></div>
       </section>
     </main>
     <footer>
-      <p>Powered by Discord Bot Hosting</p>
+      <p>Powered by CM STORE</p>
     </footer>
   </div>
 </body>
